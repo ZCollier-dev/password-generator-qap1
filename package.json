@@ -1,0 +1,11 @@
+{
+  "name": "password-generator-qap1",
+  "version": "1.0.0",
+  "description": "Password Generator for Fullstack JS QAP1, allowing the user to generate a password of varying length and varying characters.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zachary Collier",
+  "license": "ISC"
+}
