@@ -12,6 +12,7 @@ const arguments = process.argv.slice(2);
 //--length flag which allows the user to set password length (default 8 if not set)
 //implement lowercase letters first, then numbers with --number flag, then caps with --upper and (most) symbols with --symbol flag
 //PERSONAL NOTE: process.argv.slice() lops off the first few unneeded arguments and places the remaining ones into an array, i.e. removes node and index.js
+//add generate argument to program
 
 const displayHelp = () => {
   //displays a help message
@@ -20,7 +21,7 @@ const displayHelp = () => {
 
 const generatePassword = (arguments) => {
   //generates a password according to arguments
-  if (arguments.includes("--help") || arguments.length === 0) {
+  if (arguments.includes("--help")) {
     //checks for help flag
     displayHelp();
     return;
@@ -38,10 +39,10 @@ const generatePassword = (arguments) => {
     let lengthFlagPos = arguments.indexOf("--length");
     if (
       //check argument after length flag for if it is a positive integer
-      Number.isInteger(arguments[lengthFlagPos + 1]) &&
-      arguments[lengthFlagPos + 1] > 0
+      Number.isInteger(Number(arguments[lengthFlagPos + 1])) &&
+      Number(arguments[lengthFlagPos + 1]) > 0
     ) {
-      passLength = arguments[lengthFlagPos + 1];
+      passLength = Number(arguments[lengthFlagPos + 1]);
     } else {
       console.log(
         "!-- ERR: Invalid length. Please enter a valid positive integer after the --length flag, i.e. --length 8 --!"
@@ -106,4 +107,8 @@ const generatePassword = (arguments) => {
   console.log(`GENERATED PASSWORD: ${currentPassword}`); //displays complete password
 };
 
-generatePassword(arguments);
+if (arguments[0] === "generate") {
+  generatePassword(arguments);
+} else {
+  displayHelp();
+}
