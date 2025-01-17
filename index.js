@@ -24,13 +24,16 @@ const generatePassword = (arguments) => {
 
   if (arguments.includes("--length")) {
     let lengthFlagPos = arguments.indexOf("--length");
-    if (Number.isInteger(arguments[lengthFlagPos + 1])) {
+    if (
+      Number.isInteger(arguments[lengthFlagPos + 1]) &&
+      arguments[lengthFlagPos + 1] > 0
+    ) {
       passLength = arguments[lengthFlagPos + 1];
     } else {
       console.log(
-        "!-- ERR: Invalid length. Please enter a valid integer after the --length flag, i.e. --length 8 --!"
+        "!-- ERR: Invalid length. Please enter a valid positive integer after the --length flag, i.e. --length 8 --!"
       );
-      console.log("For further assistance, please enter --help.");
+      displayHelp();
       return;
     }
   }
