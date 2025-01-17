@@ -16,7 +16,30 @@ const arguments = process.argv.slice(2);
 
 const displayHelp = () => {
   //displays a help message
-  console.log("Usage:");
+  console.log("");
+  console.log("Usage: node ./index.js generate <flags>");
+  console.log("");
+  console.log(
+    "generate                                     Generates a password.\n    By default, only generates passwords with lowercase characters.\n    Must be placed as the first argument.\n    Omission of this argument generates this help message.\n    Place flags after this argument."
+  );
+  console.log("");
+  console.log(
+    "--help                                       Displays this help message."
+  );
+  console.log(
+    "--length <Non-Negative, Non-Zero Integer>    Sets the length of the generated password. Defaults to a length of 8."
+  );
+  console.log(
+    "--number                                     Randomly adds numbers to the generated password."
+  );
+  console.log(
+    "--upper                                      Randomly adds uppercase letters to the generated password."
+  );
+  console.log(
+    `--symbol                                     Randomly adds certain symbols to the generated password.\n    Currently supported symbols are: ${symbolArray.join(
+      ""
+    )}`
+  );
 };
 
 const generatePassword = (arguments) => {
@@ -73,6 +96,7 @@ const generatePassword = (arguments) => {
   } else {
     for (let i = 0; i < passLength; ++i) {
       charChoice = Math.floor(Math.random() * 4); //choose character type randomly
+
       switch (charChoice) {
         case 1:
           if (addNums) {
