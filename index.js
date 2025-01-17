@@ -15,12 +15,13 @@ const arguments = process.argv.slice(2);
 
 const displayHelp = () => {
   //displays a help message
-  console.log("Help Message Here");
+  console.log("Usage:");
 };
 
 const generatePassword = (arguments) => {
   //generates a password according to arguments
   if (arguments.includes("--help") || arguments.length === 0) {
+    //checks for help flag
     displayHelp();
     return;
   }
@@ -36,6 +37,7 @@ const generatePassword = (arguments) => {
     //check length flag if any
     let lengthFlagPos = arguments.indexOf("--length");
     if (
+      //check argument after length flag for if it is a positive integer
       Number.isInteger(arguments[lengthFlagPos + 1]) &&
       arguments[lengthFlagPos + 1] > 0
     ) {
@@ -64,12 +66,44 @@ const generatePassword = (arguments) => {
   //check for additional flags
   if (!addNums && !addUppers && !addSymbols) {
     for (let i = 0; i < passLength; ++i) {
-      charChoice = Math.floor(Math.random() * alphaLowerArray.length);
+      charChoice = Math.floor(Math.random() * alphaLowerArray.length); //choose random character in lowercase array
       currentPassword += alphaLowerArray[charChoice];
     }
   } else {
     for (let i = 0; i < passLength; ++i) {
-      charChoice = Math.floor(Math.random() * 4);
+      charChoice = Math.floor(Math.random() * 4); //choose character type randomly
+      switch (charChoice) {
+        case 1:
+          if (addNums) {
+            //number character
+            charChoice = Math.floor(Math.random() * numberArray.length);
+            currentPassword += numberArray[charChoice];
+            break;
+          }
+        case 2:
+          if (addUppers) {
+            //uppercase character
+            charChoice = Math.floor(Math.random() * alphaUpperArray.length);
+            currentPassword += alphaUpperArray[charChoice];
+            break;
+          }
+        case 3:
+          if (addSymbols) {
+            //symbol character
+            charChoice = Math.floor(Math.random() * symbolArray.length);
+            currentPassword += symbolArray[charChoice];
+            break;
+          }
+        default:
+          //lowercase character
+          charChoice = Math.floor(Math.random() * alphaLowerArray.length);
+          currentPassword += alphaLowerArray[charChoice];
+          break;
+      }
     }
   }
+
+  console.log(`GENERATED PASSWORD: ${currentPassword}`); //displays complete password
 };
+
+generatePassword(arguments);
